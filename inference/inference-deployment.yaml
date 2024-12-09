@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: imdb-inference-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: imdb-inference
+  template:
+    metadata:
+      labels:
+        app: imdb-inference
+    spec:
+      containers:
+      - name: inference-container
+        image: gcr.io/cloud-and-ml-443500/imdb-inference:latest
+        ports:
+        - containerPort: 8000
+        volumeMounts:
+        - mountPath: /app/model-storage
+          name: model-storage
+      volumes:
+      - name: model-storage
+        persistentVolumeClaim:
+          claimName: model-pvc

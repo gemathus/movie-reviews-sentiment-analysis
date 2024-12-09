@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: imdb-dataset-config
+binaryData:
+  imdb_dataset.csv: |-
+    # Your base64 encoded dataset will go here 

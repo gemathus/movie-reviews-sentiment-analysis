@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: imdb-training-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: training-container
+        image: gcr.io/cloud-and-ml-443500/imdb-training:latest
+        volumeMounts:
+        - mountPath: /app/model-storage
+          name: model-storage
+        - mountPath: /app/data
+          name: data-storage
+      restartPolicy: Never
+      volumes:
+      - name: model-storage
+        persistentVolumeClaim:
+          claimName: model-pvc
+      - name: data-storage
+        persistentVolumeClaim:
+          claimName: data-pvc
+  backoffLimit: 4 

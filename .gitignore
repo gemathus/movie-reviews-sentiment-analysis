@@ -1,0 +1,15 @@
+.venv
+.vscode
+*.zip
+# Ignore model storage (except .gitkeep)
+model-storage/*
+!model-storage/.gitkeep
+
+# Data files
+!data/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.DS_Store

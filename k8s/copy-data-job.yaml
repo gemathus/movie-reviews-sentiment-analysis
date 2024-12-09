@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: copy-data-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: copy-data
+        image: google/cloud-sdk:slim
+        command:
+        - 'bash'
+        - '-c'
+        - |
+          gsutil cp gs://cloud-and-ml-443500-ml-data/imdb_dataset.csv /data/ && \
+          echo "Data copied successfully"
+        volumeMounts:
+        - name: data-volume
+          mountPath: /data
+      restartPolicy: Never
+      volumes:
+      - name: data-volume
+        persistentVolumeClaim:
+          claimName: data-pvc
